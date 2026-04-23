@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AKRxiv</title>
+    <meta
+      name="description"
+      content="A static, LLM-curated arXiv monitor for quantum computing papers."
+    >
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">AKRxiv / curated quantum computing monitor</p>
+        <h1>Recent arXiv papers, filtered for your actual research taste.</h1>
+        <p class="lede">
+          Quantum algorithms, many-body simulation, variational dynamics, Hamiltonian
+          simulation, resource estimates, and the rare error-mitigation paper that is
+          genuinely useful.
+        </p>
+        <div class="hero-stats" id="hero-stats"></div>
+      </header>
+
+      <section class="controls" aria-label="Filters">
+        <label class="field field-search">
+          <span>Search</span>
+          <input
+            id="search-input"
+            type="search"
+            placeholder="title, abstract, author, tag, category"
+          >
+        </label>
+
+        <label class="field">
+          <span>Sort</span>
+          <select id="sort-select">
+            <option value="score">Highest score</option>
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="title">Title A-Z</option>
+          </select>
+        </label>
+
+        <div class="bucket-bar" id="bucket-bar">
+          <button class="bucket-button is-active" data-bucket="recommended" type="button">
+            Recommended
+          </button>
+          <button class="bucket-button is-active" data-bucket="maybe" type="button">
+            Maybe
+          </button>
+          <button class="bucket-button" data-bucket="ignore" type="button">
+            Ignore
+          </button>
+        </div>
+      </section>
+
+      <section id="results" class="results" aria-live="polite"></section>
+
+      <footer class="site-footer">
+        <span>Static GitHub Pages build.</span>
+        <span id="generated-at"></span>
+      </footer>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
+

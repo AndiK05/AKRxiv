@@ -1,0 +1,87 @@
+name: andi_arxiv_selector
+owner: Andreas Kruckenhauser
+
+model_policy:
+  model: gpt-5.4-mini
+  reasoning_effort: medium
+  temperature: 0.2
+
+paper_window:
+  days_back: 3
+  max_candidates_per_run: 120
+  max_llm_candidates_per_run: 40
+
+arxiv_sources:
+  categories:
+    - quant-ph
+    - cond-mat.str-el
+    - cond-mat.mes-hall
+  keyword_queries:
+    - 'all:"many-body"'
+    - 'all:"variational dynamics"'
+    - 'all:"quantum simulation"'
+    - 'all:"error mitigation"'
+
+prefilter:
+  require_any:
+    - many-body
+    - dynamics
+    - variational
+    - Hamiltonian
+    - simulation
+    - quantum
+  exclude_if_any:
+    - review
+    - survey
+    - editorial
+  boost_if_any:
+    - trotter
+    - pVQD
+    - tensor network
+    - resource estimate
+    - fault tolerant
+
+research_profile: |
+  You are filtering arXiv papers for a researcher in quantum computing.
+
+  Prioritize:
+  - quantum algorithms
+  - many-body simulation
+  - variational quantum dynamics
+  - simulation methods with rigorous or practically meaningful resource estimates
+  - useful error mitigation when it materially improves an algorithm or simulation workflow
+  - papers with concrete methods, bounds, experiments, or implementation detail
+
+  Deprioritize:
+  - generic surveys or reviews
+  - hardware-only engineering papers without algorithmic insight
+  - incremental benchmark papers with weak conceptual novelty
+  - classical-only methods unless directly tied to quantum algorithms or quantum simulation
+
+  Favor papers that are likely to be useful for research direction, implementation, or journal-club style triage.
+
+classification_policy: |
+  Judge relevance using only the provided metadata.
+  Do not infer experimental results or claims not stated in the abstract.
+  Be conservative about novelty claims.
+  Prefer precise reasons over broad praise.
+
+labels:
+  buckets:
+    - recommended
+    - maybe
+    - ignore
+  tags:
+    - variational dynamics
+    - many-body simulation
+    - quantum algorithms
+    - error mitigation
+    - resource estimates
+    - Hamiltonian simulation
+    - tensor networks
+    - benchmarking
+    - hardware-oriented
+
+thresholds:
+  recommended_min_score: 75
+  maybe_min_score: 50
