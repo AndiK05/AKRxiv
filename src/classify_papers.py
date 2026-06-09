@@ -27,6 +27,8 @@ OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 OPENROUTER_API_KEY_ENV = "OPENROUTER_API_KEY"
 DEFAULT_MODEL = "openrouter/free"
 DEFAULT_MAX_TOKENS = 400
+DEFAULT_REQUEST_DELAY_SECONDS = 5
+DEFAULT_RETRY_BACKOFF_SECONDS = 60
 
 PROMPT_CONTRACT = """You are classifying arXiv papers for a specific researcher.
 
@@ -167,9 +169,16 @@ def main() -> None:
     ensure_output_files()
 
     profile = load_profile()
+    model_policy = profile.get("model_policy", {})
     schema = load_classification_schema()
     papers = load_json(INPUT_PATH, default=[])
     client = OpenAI(api_key=api_key, base_url=OPENROUTER_BASE_URL)
+    request_delay_seconds = float(
+        model_policy.get("request_delay_seconds", DEFAULT_REQUEST_DELAY_SECONDS)
+    )
+    retry_backoff_seconds = float(
+        model_policy.get("retry_backoff_seconds", DEFAULT_RETRY_BACKOFF_SECONDS)
+    )
 
     final_papers: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []
@@ -179,6 +188,9 @@ def main() -> None:
     print(f"Classifying {total_papers} papers...")
 
     for index, paper in enumerate(papers, start=1):
+        if index > 1 and request_delay_seconds > 0:
+            time.sleep(request_delay_seconds)
+
         paper_id = paper.get("paper_id", "")
         title = paper.get("title", "")
         print(f"[{index}/{total_papers}] Classifying {paper_id} - {title}")
@@ -209,7 +221,10 @@ def main() -> None:
                         f"[{index}/{total_papers}] Retry {attempt + 1}/2 for "
                         f"{paper_id}: {type(exc).__name__}: {exc}"
                     )
-                    time.sleep(2**attempt)
+                    delay_seconds = retry_backoff_seconds
+                    if not isinstance(exc, RateLimitError):
+                        delay_seconds = max(2**attempt, retry_backoff_seconds)
+                    time.sleep(delay_seconds)
             except Exception as exc:
                 errors.append(
                     {
