@@ -25,7 +25,7 @@ INPUT_PATH = INTERMEDIATE_DIR / "prefiltered.json"
 ERROR_LOG_PATH = OUTPUT_DIR / "classification_errors.json"
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 OPENROUTER_API_KEY_ENV = "OPENROUTER_API_KEY"
-DEFAULT_MODEL = "google/gemma-4-31b-it:free"
+DEFAULT_MODEL = "openrouter/free"
 DEFAULT_MAX_TOKENS = 400
 
 PROMPT_CONTRACT = """You are classifying arXiv papers for a specific researcher.
