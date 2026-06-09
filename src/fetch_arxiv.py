@@ -24,8 +24,11 @@ from src.utils import (
     write_text,
 )
 
-ARXIV_API_URL = "http://export.arxiv.org/api/query"
-REQUEST_TIMEOUT_SECONDS = 30
+ARXIV_API_URL = "https://export.arxiv.org/api/query"
+REQUEST_TIMEOUT_SECONDS = 60
+DEFAULT_RETRY_COUNT = 3
+DEFAULT_RETRY_BACKOFF_SECONDS = 60
+RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 ATOM_NS = {
     "atom": "http://www.w3.org/2005/Atom",
     "arxiv": "http://arxiv.org/schemas/atom",
@@ -46,21 +49,56 @@ def fetch_query_page(
     max_results: int,
     sort_by: str,
     sort_order: str,
+    retry_count: int = DEFAULT_RETRY_COUNT,
+    retry_backoff_seconds: float = DEFAULT_RETRY_BACKOFF_SECONDS,
 ) -> str:
-    response = session.get(
-        ARXIV_API_URL,
-        params={
-            "search_query": query,
-            "start": start,
-            "max_results": max_results,
-            "sortBy": sort_by,
-            "sortOrder": sort_order,
-        },
-        timeout=REQUEST_TIMEOUT_SECONDS,
-        headers={"User-Agent": USER_AGENT},
-    )
-    response.raise_for_status()
-    return response.text
+    for attempt in range(retry_count + 1):
+        try:
+            response = session.get(
+                ARXIV_API_URL,
+                params={
+                    "search_query": query,
+                    "start": start,
+                    "max_results": max_results,
+                    "sortBy": sort_by,
+                    "sortOrder": sort_order,
+                },
+                timeout=REQUEST_TIMEOUT_SECONDS,
+                headers={"User-Agent": USER_AGENT},
+            )
+        except (requests.ConnectionError, requests.Timeout) as exc:
+            if attempt == retry_count:
+                raise
+
+            delay_seconds = retry_backoff_seconds * (attempt + 1)
+            print(
+                "arXiv request failed with "
+                f"{type(exc).__name__}; retrying in {delay_seconds:.0f}s "
+                f"({attempt + 1}/{retry_count})..."
+            )
+            time.sleep(delay_seconds)
+            continue
+
+        if response.status_code not in RETRYABLE_STATUS_CODES:
+            response.raise_for_status()
+            return response.text
+
+        if attempt == retry_count:
+            response.raise_for_status()
+
+        retry_after = response.headers.get("Retry-After", "")
+        delay_seconds = retry_backoff_seconds * (attempt + 1)
+        if retry_after.isdigit():
+            delay_seconds = max(delay_seconds, float(retry_after))
+
+        print(
+            "arXiv returned "
+            f"HTTP {response.status_code}; retrying in {delay_seconds:.0f}s "
+            f"({attempt + 1}/{retry_count})..."
+        )
+        time.sleep(delay_seconds)
+
+    raise RuntimeError("Unexpected arXiv retry loop exit.")
 
 
 def parse_entry(entry: ET.Element, source_query: str) -> CandidatePaper | None:
@@ -148,6 +186,10 @@ def main() -> None:
     page_size = int(sources.get("page_size", 100))
     max_pages = int(sources.get("max_pages", 1))
     request_delay_seconds = float(sources.get("request_delay_seconds", 3))
+    retry_count = int(sources.get("retry_count", DEFAULT_RETRY_COUNT))
+    retry_backoff_seconds = float(
+        sources.get("retry_backoff_seconds", DEFAULT_RETRY_BACKOFF_SECONDS)
+    )
     sort_by = sources.get("sort_by", "submittedDate")
     sort_order = sources.get("sort_order", "descending")
 
@@ -165,14 +207,32 @@ def main() -> None:
                 time.sleep(request_delay_seconds)
 
             start = page_index * page_size
-            xml_text = fetch_query_page(
-                session=session,
-                query=query,
-                start=start,
-                max_results=page_size,
-                sort_by=sort_by,
-                sort_order=sort_order,
-            )
+            try:
+                xml_text = fetch_query_page(
+                    session=session,
+                    query=query,
+                    start=start,
+                    max_results=page_size,
+                    sort_by=sort_by,
+                    sort_order=sort_order,
+                    retry_count=retry_count,
+                    retry_backoff_seconds=retry_backoff_seconds,
+                )
+            except requests.HTTPError as exc:
+                response = exc.response
+                status = response.status_code if response is not None else "unknown"
+                raise SystemExit(
+                    "arXiv fetch failed after retries "
+                    f"(HTTP {status}). This usually means arXiv is temporarily "
+                    "rate-limiting this IP or the API is under load. Wait "
+                    "15-30 minutes before trying again, or lower page_size/max_pages "
+                    "in config/sources.yaml."
+                )
+            except requests.RequestException as exc:
+                raise SystemExit(
+                    "arXiv fetch failed after retries "
+                    f"({type(exc).__name__}). Wait a few minutes and try again."
+                )
             request_count += 1
 
             if not raw_snapshot_written:
@@ -205,4 +265,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

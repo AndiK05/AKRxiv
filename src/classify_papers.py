@@ -23,6 +23,10 @@ from src.utils import (
 
 INPUT_PATH = INTERMEDIATE_DIR / "prefiltered.json"
 ERROR_LOG_PATH = OUTPUT_DIR / "classification_errors.json"
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+OPENROUTER_API_KEY_ENV = "OPENROUTER_API_KEY"
+DEFAULT_MODEL = "google/gemma-4-31b-it:free"
+DEFAULT_MAX_TOKENS = 400
 
 PROMPT_CONTRACT = """You are classifying arXiv papers for a specific researcher.
 
@@ -86,23 +90,37 @@ def build_messages(profile: dict[str, Any], paper: dict[str, Any]) -> list[dict[
     ]
 
 
-def extract_refusal(response: Any) -> str | None:
-    try:
-        payload = response.model_dump()
-    except AttributeError:
-        return None
-
-    for item in payload.get("output", []):
-        for content in item.get("content", []):
-            if content.get("type") == "refusal":
-                return content.get("refusal")
-    return None
-
-
 def validate_classification(schema: dict[str, Any], result: dict[str, Any]) -> None:
     from jsonschema import Draft202012Validator
 
     Draft202012Validator(schema).validate(result)
+
+
+def extract_chat_content(response: Any) -> str:
+    choices = getattr(response, "choices", []) or []
+    if not choices:
+        raise RuntimeError("Model response did not contain any choices.")
+
+    message = choices[0].message
+    refusal = getattr(message, "refusal", None)
+    if refusal:
+        raise RuntimeError(f"Model refusal: {refusal}")
+
+    content = getattr(message, "content", "") or ""
+    if isinstance(content, list):
+        parts: list[str] = []
+        for part in content:
+            if isinstance(part, str):
+                parts.append(part)
+            elif isinstance(part, dict):
+                parts.append(str(part.get("text", "")))
+            else:
+                parts.append(str(getattr(part, "text", "")))
+        content = "".join(parts)
+
+    if not str(content).strip():
+        raise RuntimeError("Model response did not contain structured output text.")
+    return str(content)
 
 
 def classify_one_paper(
@@ -112,30 +130,28 @@ def classify_one_paper(
     paper: dict[str, Any],
 ) -> dict[str, Any]:
     model_policy = profile.get("model_policy", {})
-    response = client.responses.create(
-        model=model_policy.get("model", "gpt-5.4-mini"),
-        input=build_messages(profile, paper),
-        temperature=float(model_policy.get("temperature", 0.2)),
-        reasoning={"effort": model_policy.get("reasoning_effort", "medium")},
-        max_output_tokens=400,
-        text={
-            "format": {
-                "type": "json_schema",
+    request_payload: dict[str, Any] = {
+        "model": model_policy.get("model", DEFAULT_MODEL),
+        "messages": build_messages(profile, paper),
+        "temperature": float(model_policy.get("temperature", 0.2)),
+        "max_tokens": int(
+            model_policy.get(
+                "max_tokens",
+                model_policy.get("max_output_tokens", DEFAULT_MAX_TOKENS),
+            )
+        ),
+        "response_format": {
+            "type": "json_schema",
+            "json_schema": {
                 "name": "paper_classification",
                 "strict": True,
                 "schema": schema,
             }
         },
-    )
+    }
+    response = client.chat.completions.create(**request_payload)
 
-    output_text = getattr(response, "output_text", "") or ""
-    if not output_text.strip():
-        refusal = extract_refusal(response)
-        if refusal:
-            raise RuntimeError(f"Model refusal: {refusal}")
-        raise RuntimeError("Model response did not contain structured output text.")
-
-    result = json.loads(output_text)
+    result = json.loads(extract_chat_content(response))
     result["paper_id"] = paper["paper_id"]
     result["title"] = paper["title"]
     validate_classification(schema, result)
@@ -143,9 +159,9 @@ def classify_one_paper(
 
 
 def main() -> None:
-    api_key = os.environ.get("OPENAI_API_KEY")
+    api_key = os.environ.get(OPENROUTER_API_KEY_ENV)
     if not api_key:
-        raise SystemExit("OPENAI_API_KEY is required to classify papers.")
+        raise SystemExit(f"{OPENROUTER_API_KEY_ENV} is required to classify papers.")
 
     ensure_directory(OUTPUT_DIR)
     ensure_output_files()
@@ -153,17 +169,27 @@ def main() -> None:
     profile = load_profile()
     schema = load_classification_schema()
     papers = load_json(INPUT_PATH, default=[])
-    client = OpenAI(api_key=api_key)
+    client = OpenAI(api_key=api_key, base_url=OPENROUTER_BASE_URL)
 
     final_papers: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []
     retryable_exceptions = (APIConnectionError, APITimeoutError, RateLimitError, APIError)
 
-    for paper in papers:
+    total_papers = len(papers)
+    print(f"Classifying {total_papers} papers...")
+
+    for index, paper in enumerate(papers, start=1):
+        paper_id = paper.get("paper_id", "")
+        title = paper.get("title", "")
+        print(f"[{index}/{total_papers}] Classifying {paper_id} - {title}")
         for attempt in range(3):
             try:
                 classification = classify_one_paper(client, profile, schema, paper)
                 final_papers.append(public_paper_record(paper, classification))
+                print(
+                    f"[{index}/{total_papers}] Success: "
+                    f"{paper_id} -> {classification['bucket']} ({classification['score']})"
+                )
                 break
             except retryable_exceptions as exc:
                 if attempt == 2:
@@ -174,7 +200,15 @@ def main() -> None:
                             "error": f"{type(exc).__name__}: {exc}",
                         }
                     )
+                    print(
+                        f"[{index}/{total_papers}] Failed after retries: "
+                        f"{paper_id} -> {type(exc).__name__}: {exc}"
+                    )
                 else:
+                    print(
+                        f"[{index}/{total_papers}] Retry {attempt + 1}/2 for "
+                        f"{paper_id}: {type(exc).__name__}: {exc}"
+                    )
                     time.sleep(2**attempt)
             except Exception as exc:
                 errors.append(
@@ -183,6 +217,10 @@ def main() -> None:
                         "title": paper.get("title", ""),
                         "error": f"{type(exc).__name__}: {exc}",
                     }
+                )
+                print(
+                    f"[{index}/{total_papers}] Failed: "
+                    f"{paper_id} -> {type(exc).__name__}: {exc}"
                 )
                 break
 
@@ -205,4 +243,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

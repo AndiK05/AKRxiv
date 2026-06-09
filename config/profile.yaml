@@ -2,8 +2,8 @@ name: andi_arxiv_selector
 owner: Andreas Kruckenhauser
 
 model_policy:
-  model: gpt-5.4-mini
-  reasoning_effort: medium
+  model: "google/gemma-4-31b-it:free"
+  max_tokens: 400
   temperature: 0.2
 
 paper_window:

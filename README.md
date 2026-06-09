@@ -1,6 +1,6 @@
 # AKRxiv
 
-AKRxiv is a GitHub-hosted arXiv monitor for quantum-computing papers. It fetches recent arXiv entries, applies a cheap local prefilter, asks an OpenAI model for structured relevance judgments, and publishes the results as a static GitHub Pages site.
+AKRxiv is a GitHub-hosted arXiv monitor for quantum-computing papers. It fetches recent arXiv entries, applies a cheap local prefilter, asks an OpenRouter model for structured relevance judgments, and publishes the results as a static GitHub Pages site.
 
 ## What it does
 
@@ -37,13 +37,17 @@ pip install -r requirements.txt
 Run the pipeline from the repository root:
 
 ```bash
-python src/fetch_arxiv.py
-python src/prefilter.py
-OPENAI_API_KEY=your_key_here python src/classify_papers.py
+export OPENROUTER_API_KEY=your_key_here
+python src/fetch_arxiv.py && \
+python src/prefilter.py && \
+python src/classify_papers.py && \
 python src/build_site.py
 ```
 
 Open `dist/index.html` in a browser after the build completes.
+
+If arXiv returns `HTTP 429`, wait 15-30 minutes before retrying. The fetch settings in
+`config/sources.yaml` control page size, page count, delay, and retry backoff.
 
 ## Configuration
 
@@ -53,7 +57,7 @@ Open `dist/index.html` in a browser after the build completes.
 
 ## GitHub setup
 
-1. Add `OPENAI_API_KEY` under `Settings -> Secrets and variables -> Actions`.
+1. Add `OPENROUTER_API_KEY` under `Settings -> Secrets and variables -> Actions`.
 2. In `Settings -> Pages`, set the source to `GitHub Actions`.
 3. Run the `Update and deploy arXiv monitor` workflow manually once to publish the first build.
 
@@ -69,7 +73,6 @@ The validation workflow does not require secrets. It:
 
 ## Notes
 
-- The frontend never calls the OpenAI API directly.
+- The frontend never calls the OpenRouter API directly.
 - `dist/` is generated and not committed.
-- If an OpenAI call fails for one paper, the pipeline logs the error and continues.
-
+- If an OpenRouter call fails for one paper, the pipeline logs the error and continues.

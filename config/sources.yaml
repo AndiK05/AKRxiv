@@ -1,11 +1,12 @@
 sort_by: submittedDate
 sort_order: descending
-page_size: 100
-max_pages: 2
-request_delay_seconds: 3
+page_size: 50
+max_pages: 1
+request_delay_seconds: 10
+retry_count: 3
+retry_backoff_seconds: 60
 
 queries:
   - '(cat:quant-ph OR cat:cond-mat.str-el) AND (all:"many-body" OR all:"variational" OR all:"simulation")'
   - 'cat:quant-ph AND all:"error mitigation"'
   - 'cat:quant-ph AND all:"Hamiltonian simulation"'
-
