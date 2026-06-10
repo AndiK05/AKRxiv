@@ -2,8 +2,8 @@ name: Update and deploy arXiv monitor
 
 on:
   schedule:
-    # 06:00 CET, Monday-Friday. GitHub cron runs in UTC.
-    - cron: "0 5 * * 1-5"
+    # 05:00 CET / 06:00 CEST, Monday-Friday. GitHub cron runs in UTC.
+    - cron: "0 4 * * 1-5"
   workflow_dispatch:
 
 permissions:
