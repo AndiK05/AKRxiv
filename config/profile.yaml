@@ -2,11 +2,11 @@ name: andi_arxiv_selector
 owner: Andreas Kruckenhauser
 
 model_policy:
-  model: "openrouter/free"
+  model: "openai/gpt-4.1-nano"
   max_tokens: 400
   temperature: 0.2
-  request_delay_seconds: 5
-  retry_backoff_seconds: 60
+  request_delay_seconds: 1
+  retry_backoff_seconds: 30
 
 paper_window:
   days_back: 3
