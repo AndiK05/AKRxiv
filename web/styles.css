@@ -257,8 +257,7 @@ a:focus-visible {
 .score-pill,
 .confidence-pill,
 .mini-pill,
-.card-links a,
-.abstract-toggle {
+.card-links a {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.72);
 }
@@ -270,9 +269,8 @@ a:focus-visible {
 }
 
 .paper-meta,
-.reason,
+.abstract,
 .concerns,
-.abstract p,
 .notice-card p {
   color: var(--muted);
   line-height: 1.6;
@@ -288,8 +286,7 @@ a:focus-visible {
   gap: 8px;
 }
 
-.card-links a,
-.abstract-toggle {
+.card-links a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -299,9 +296,10 @@ a:focus-visible {
   cursor: pointer;
 }
 
-.reason {
+.abstract {
   margin: 16px 0 0;
   font-size: 1rem;
+  line-height: 1.6;
 }
 
 .pill-row {
@@ -323,20 +321,6 @@ a:focus-visible {
   margin: 14px 0 0;
 }
 
-.abstract-toggle {
-  margin-top: 16px;
-}
-
-.abstract {
-  display: none;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-}
-
-.abstract.is-visible {
-  display: block;
-}
 
 .site-footer {
   display: flex;

@@ -10,63 +10,250 @@ model_policy:
 
 paper_window:
   days_back: 3
-  max_candidates_per_run: 120
-  max_llm_candidates_per_run: 40
+  max_candidates_per_run: 100
+  max_llm_candidates_per_run: 100
 
 arxiv_sources:
   categories:
     - quant-ph
-    - cond-mat.str-el
-    - cond-mat.mes-hall
   keyword_queries:
-    - 'all:"many-body"'
-    - 'all:"variational dynamics"'
-    - 'all:"quantum simulation"'
-    - 'all:"error mitigation"'
+    - "cat:quant-ph"
 
 prefilter:
   require_any:
-    - many-body
-    - dynamics
-    - variational
-    - Hamiltonian
-    - simulation
     - quantum
-  exclude_if_any:
-    - review
-    - survey
-    - editorial
-  boost_if_any:
-    - trotter
-    - pVQD
-    - tensor network
-    - resource estimate
+    - qubit
+    - atom
+    - atoms
+    - neutral atom
+    - neutral atoms
+    - Rydberg
+    - gate
+    - gates
+    - error correction
     - fault tolerant
+    - qLDPC
+    - quantum LDPC
+    - quantum computing
+    - quantum computer
+  exclude_if_any: []
+  boost_if_any:
+    - planqc
+    - QuEra
+    - Pasqal
+    - PASQAL
+    - Atom Computing
+    - Infleqtion
+    - ColdQuanta
+    - Eniquantic
+    - Eni Quantum
+    - Oratomic
+    - Google Quantum AI
+    - IBM Quantum
+    - Microsoft Quantum
+    - Azure Quantum
+    - Amazon Braket
+    - AWS Center for Quantum Computing
+    - Quantinuum
+    - IonQ
+    - Rigetti
+    - D-Wave
+    - PsiQuantum
+    - Xanadu
+    - IQM
+    - OQC
+    - Alice & Bob
+    - Intel Quantum
+    - NVIDIA Quantum
+    - AQT
+    - Quantum Circuits Inc.
+    - neutral atom
+    - neutral atoms
+    - Rydberg
+    - alkali
+    - alkaline-earth
+    - optical tweezer
+    - optical tweezers
+    - reconfigurable atom array
+    - reconfigurable atom arrays
+    - Rydberg gate
+    - Rydberg gates
+    - entangling gate
+    - entangling gates
+    - qLDPC
+    - quantum LDPC
+    - high-rate code
+    - high-rate codes
+    - bivariate bicycle
+    - generalized bicycle
+    - hypergraph product
+    - balanced product
+    - lifted product
+    - quantum Tanner
+    - atom loss
+    - erasure decoding
+    - logical gate
+    - logical gates
+    - magic-state
+    - magic state
+    - Lukin
+    - Zhou
+    - Bluvstein
+    - Maskara
+    - Levine
+    - Cantu
+    - Zhao
+    - Gu
+    - Baranes
+    - Vuletic
+    - Endres
+    - Preskill
+    - Huang
+    - Cain
+    - Xu
+    - King
+    - Picard
+    - Thompson
+    - Puri
+    - Pupillo
+    - Jandura
+    - Pecorari
+    - Perrin
+    - Brennen
+    - Breuckmann
+    - Eberhardt
+    - Panteleev
+    - Kalachev
+    - Leverrier
+    - Tillich
+    - Zemor
+    - Dinur
+    - Vidick
+    - Delfosse
+    - Beverland
+    - Tremblay
+    - Bravyi
+    - Cross
+    - Gambetta
+    - Maslov
+    - Rall
+    - Yoder
+    - Campbell
+    - Quintavalle
+    - Vasmer
+    - Roffe
+    - Kubica
+    - Chong
+    - Viszlai
+    - Yang
+    - Lin
+    - Liu
+    - Nottingham
+    - Baker
 
 research_profile: |
-  You are filtering arXiv papers for a researcher in quantum computing.
+  You are filtering arXiv quant-ph papers for a researcher working at planqc,
+  a neutral-atom quantum computing company.
 
-  Prioritize:
-  - quantum algorithms
-  - many-body simulation
-  - variational quantum dynamics
-  - simulation methods with rigorous or practically meaningful resource estimates
-  - useful error mitigation when it materially improves an algorithm or simulation workflow
-  - papers with concrete methods, bounds, experiments, or implementation detail
+  The user wants broad coverage of new quant-ph papers, with minimal hard
+  prefiltering before LLM classification. Do not reject papers merely because
+  they are outside the older many-body/variational-simulation profile.
 
-  Deprioritize:
-  - generic surveys or reviews
-  - hardware-only engineering papers without algorithmic insight
-  - incremental benchmark papers with weak conceptual novelty
-  - classical-only methods unless directly tied to quantum algorithms or quantum simulation
+  Strongly prioritize papers associated with major quantum computing companies,
+  especially direct or adjacent neutral-atom/Rydberg competitors and ecosystem
+  companies:
+  - planqc
+  - QuEra Computing / QuEra
+  - Pasqal / PASQAL
+  - Atom Computing
+  - Infleqtion / ColdQuanta
+  - Eniquantic / Eni Quantum / Eni
+  - Oratomic
+  - Google Quantum AI when neutral atoms are involved
 
-  Favor papers that are likely to be useful for research direction, implementation, or journal-club style triage.
+  Also keep track of major quantum computing companies more broadly:
+  - IBM Quantum
+  - Microsoft Quantum / Azure Quantum
+  - Amazon Braket / AWS Center for Quantum Computing
+  - Quantinuum
+  - IonQ
+  - Rigetti Computing
+  - D-Wave
+  - PsiQuantum
+  - Xanadu
+  - IQM Quantum Computers
+  - Oxford Quantum Circuits / OQC
+  - Alice & Bob
+  - Intel Quantum
+  - NVIDIA Quantum
+  - AQT / Alpine Quantum Technologies
+  - Quantum Circuits Inc.
+
+  The user is an atomic physicist with a specific interest in quantum computing
+  architectures based on alkali or alkaline-earth atoms excited to Rydberg
+  states. Prioritize papers that propose, analyze, or demonstrate:
+  - neutral-atom quantum computing architectures
+  - Rydberg-mediated gates or entangling mechanisms
+  - new qubit encodings
+  - optical tweezer or reconfigurable-array control protocols
+  - scalable neutral-atom architectures
+  - neutral-atom quantum simulation protocols relevant to processors
+  - experimental or conceptual advances relevant to Rydberg-based machines
+
+  The user is also strongly interested in quantum error correction for
+  neutral-atom systems, especially qLDPC and high-rate codes. Prioritize papers
+  about:
+  - qLDPC / quantum LDPC codes
+  - high-rate quantum error-correcting codes
+  - bivariate or generalized bicycle codes
+  - hypergraph product, balanced product, lifted product, or quantum Tanner codes
+  - neutral-atom-compatible QEC implementations
+  - atom-loss-aware or erasure-aware decoding
+  - fault-tolerant architectures using atom rearrangement or long-range connectivity
+  - logical gates on qLDPC or neutral-atom codes
+  - transversal operations
+  - magic-state preparation or distillation
+  - resource estimates for fault-tolerant neutral-atom quantum computation
+
+  People and groups on the watchlist include:
+  - Mikhail Lukin, Hengyun Zhou, Dolev Bluvstein, Nishad Maskara, Harry Levine,
+    Sergio Cantu, Chen Zhao, Andi Gu, Gefen Baranes, Vladan Vuletic
+  - Manuel Endres, John Preskill, Hsin-Yuan Huang, Madelyn Cain, Qian Xu,
+    Robbie King, Lewis Picard
+  - Jeff Thompson, Shruti Puri
+  - Guido Pupillo, Sven Jandura, Laura Pecorari, Hugo Perrin, Gavin Brennen
+  - Nikolas Breuckmann, Jens Niklas Eberhardt, Pavel Panteleev, Gleb Kalachev,
+    Anthony Leverrier, Jean-Pierre Tillich, Gilles Zemor, Irit Dinur,
+    Thomas Vidick
+  - Nicolas Delfosse, Michael Beverland, Maxime Tremblay, Sergey Bravyi,
+    Andrew Cross, Jay Gambetta, Dmitri Maslov, Patrick Rall, Theodore Yoder
+  - Earl Campbell, Armanda Quintavalle, Michael Vasmer, Joschka Roffe,
+    Aleksander Kubica
+  - Frederic Chong, Joshua Viszlai, Willers Yang, Sophia Fuhui Lin, Junyu Liu,
+    Natalia Nottingham, Jonathan Baker
 
 classification_policy: |
-  Judge relevance using only the provided metadata.
-  Do not infer experimental results or claims not stated in the abstract.
-  Be conservative about novelty claims.
-  Prefer precise reasons over broad praise.
+  Judge relevance using only the provided metadata: title, abstract, authors,
+  categories, and comments if present. Do not infer claims not stated in the
+  metadata.
+
+  Recommended papers should be those the user likely should not miss. Assign
+  recommended when a paper is strongly connected to neutral-atom/Rydberg quantum
+  computing, qLDPC/QEC for neutral atoms, important quantum computing company
+  output, or a watchlisted group/person with a relevant topic.
+
+  Use maybe for papers that are plausibly useful but less directly connected,
+  including general QEC, broad quantum computing architecture, or company papers
+  without clear neutral-atom/QEC relevance.
+
+  Use ignore only for papers that are clearly unrelated to quantum computing,
+  neutral atoms, Rydberg platforms, QEC, company-watchlist activity, or the
+  user's stated research interests.
+
+  Be conservative about novelty claims, but do not be conservative about
+  surfacing potentially relevant company, neutral-atom, or qLDPC papers.
+  Prefer precise short reasons that identify the concrete trigger for the
+  ranking decision.
 
 labels:
   buckets:
@@ -74,14 +261,22 @@ labels:
     - maybe
     - ignore
   tags:
-    - variational dynamics
-    - many-body simulation
+    - neutral atoms
+    - Rydberg gates
+    - alkaline-earth atoms
+    - optical tweezers
+    - reconfigurable arrays
+    - neutral-atom architecture
+    - quantum error correction
+    - qLDPC
+    - high-rate codes
+    - atom loss
+    - erasure decoding
+    - logical gates
+    - magic states
+    - company watchlist
     - quantum algorithms
-    - error mitigation
     - resource estimates
-    - Hamiltonian simulation
-    - tensor networks
-    - benchmarking
     - hardware-oriented
 
 thresholds:

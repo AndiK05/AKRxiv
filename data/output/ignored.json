@@ -1,2 +1,206 @@
-[]
-
+[
+  {
+    "paper_id": "2606.09469",
+    "title": "Hardware-Aware QAOA for Honeypot Traffic Partitioning on 100+ Qubit IBM Quantum Processors",
+    "abstract": "Denial-of-service (DoS) and distributed denial-of-service (DDoS) mitigation requires separating malicious traffic from benign traffic while minimizing disruption to legitimate users. Prior work proposed mapping honeypot traffic partitioning to a weighted MaxCut problem and solving the resulting graphs with variational quantum algorithms. We extend this proof of principle direction with a reproducible event-level honeypot-to-QUBO pipeline, labeled temporal bipartite benchmark graphs with 16, 32, 66, and 110 event nodes, QAOA executions on IBM quantum hardware, classical heuristic baselines, a noiseless matrix product state reference, and a routing overhead analysis across quantum processor architectures. The largest benchmark is a 110-node, 181-edge instance executed on three IBM backends. Our results show that a shallow QAOA can execute real traffic partitioning workloads at the utility scale, while backend architecture and routing overhead affect objective quality, security metrics, and observed runtime. Because simple classical heuristics can solve the current labeled benchmark graphs, these experiments are not a quantum advantage claim. Instead, we deliberately use a fixed, shallow QAOA implementation to enable controlled comparisons across problem sizes and hardware architectures. This work establishes a hardware feasibility and architecture benchmark framework, and demonstrates that MaxCut cost, security quality, routing overhead, and runtime must be reported as separate metrics for cybersecurity relevant quantum optimization.",
+    "authors": [
+      "Cameron V. Cogburn",
+      "Casimer DeCusatis",
+      "Evan Spillane"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-08T13:24:55Z",
+    "link_abs": "https://arxiv.org/abs/2606.09469",
+    "link_pdf": "https://arxiv.org/pdf/2606.09469.pdf",
+    "bucket": "ignore",
+    "score": 30,
+    "confidence": 0.2,
+    "short_reason": "Focuses on quantum optimization (QAOA) applied to cybersecurity traffic partitioning, with no mention of neutral-atom platforms, Rydberg states, or quantum error correction relevant to the user's interests.",
+    "matched_topics": [],
+    "concerns": [
+      "No relevance to neutral-atom quantum computing or Rydberg platforms",
+      "No mention of qLDPC or quantum error correction",
+      "Focus on IBM quantum hardware and classical heuristics"
+    ]
+  },
+  {
+    "paper_id": "2606.10510",
+    "title": "Single-photon scattering in a dissipative superconducting-qubit--SSH lattice hybrid",
+    "abstract": "We study single-photon scattering in a Su--Schrieffer--Heeger (SSH) photonic lattice locally coupled to a superconducting qubit with tunable loss or gain. Working in the single-excitation sector, we derive an explicit real-space scattering formulation for the full energy-dependent scattering matrix $S(E)$ and identify how its eigenvalues encode coherent perfect absorption, amplification, and spectral singular behavior. The analytical results are benchmarked against time-domain wave-packet simulations, which reproduce the stationary scattering probabilities with high accuracy. We show that the SSH dimerization, the qubit-induced non-Hermitian self-energy, and the synthetic gauge phase cooperate to reshape the reflection and transmission spectra in a highly selective way. In particular, changing the dimerization can switch the system between transmission-dominated and reflection-dominated regimes, while the flux provides a direct handle on interference and symmetry-controlled response. We also find a robust loss--gain correspondence in the reflection landscape and show that the linewidth broadening is governed predominantly by the magnitude $|γ|$ of the non-Hermitian coupling. These results establish a compact and experimentally relevant framework for topological scattering in superconducting quantum networks.",
+    "authors": [
+      "Xiao-Xue Zhang",
+      "Jie Zhou",
+      "Xi-Zheng Zhang"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-09T07:37:35Z",
+    "link_abs": "https://arxiv.org/abs/2606.10510",
+    "link_pdf": "https://arxiv.org/pdf/2606.10510.pdf",
+    "bucket": "ignore",
+    "score": 20,
+    "confidence": 0.2,
+    "short_reason": "Focuses on photon scattering in a superconducting-qubit SSH lattice, not directly related to neutral-atom quantum computing or Rydberg platforms.",
+    "matched_topics": [],
+    "concerns": [
+      "No mention of neutral atoms, Rydberg states, or quantum error correction relevant to the user's interests."
+    ]
+  },
+  {
+    "paper_id": "2606.10114",
+    "title": "A Cryogenic Hybrid Photonic/CMOS Controller Architecture for Scalable Superconducting Qubit Control",
+    "abstract": "Scaling superconducting quantum computers toward thousands of qubits remains a difficult control hardware problem. It requires hardware that reduces room-temperature to cryogenic wiring and cryogenic power while preserving in-fridge programmability for microwave pulse generation. This work develops a 4 K hybrid photonic/CMOS control architecture in which optical fibers distribute shared shaped pulse templates, while local cryogenic CMOS (Cryo-CMOS) circuits provide transmission control, amplitude programming, sample-and-hold envelope shaping, LO-tone and phase selection, and microwave upconversion, enabling both single-qubit and two-qubit gate generation within the same control path. Compared with fully Cryo-CMOS controllers, this architecture reduces per-channel active dissipation by moving high-speed sampled RF/IF waveform synthesis and waveform-memory access out of each cryogenic channel. Compared with purely photonic-link qubit-control approaches, it adds local 4 K programmability for pulse selection, amplitude scaling, timing updates, and LO-phase control, while remaining compatible with room-temperature real-time feedback and quantum error correction (QEC) workflows. We present architecture-level first-order models for 4 K power dissipation, waveform-memory scaling, and controller-induced fidelity limits, and cross-check the dominant fidelity terms using a three-level transmon simulation. The analysis shows that shared optical pulse template distribution with local 4 K envelope programming is a feasible path toward scalable superconducting qubit control.",
+    "authors": [
+      "Bowen Liu",
+      "Zhaoran Rena Huang"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-08T19:48:15Z",
+    "link_abs": "https://arxiv.org/abs/2606.10114",
+    "link_pdf": "https://arxiv.org/pdf/2606.10114.pdf",
+    "bucket": "ignore",
+    "score": 20,
+    "confidence": 0.2,
+    "short_reason": "Focuses on superconducting qubit control hardware architecture, not neutral atoms or Rydberg systems.",
+    "matched_topics": [],
+    "concerns": [
+      "No mention of neutral-atom platforms, Rydberg states, or quantum error correction relevant to atomic systems."
+    ]
+  },
+  {
+    "paper_id": "2606.10098",
+    "title": "VQA for Dynamic Portfolio Optimization: Sampling Strategies, Optimizer Scheduling, and Hardware-Aware Ansatz Design",
+    "abstract": "Variational quantum algorithms are increasingly explored for optimization problems at scales relevant to near-term quantum devices. Their practical performance depends strongly on design choices such as the sampling objective, classical optimizer, and ansatz layout before and after hardware transpilation. We study these factors for dynamic portfolio optimization, a multi-period financial problem balancing return, risk, transaction costs, cash-interest effects, and constraints. Using a sampling-based VQA framework on a 150-qubit dynamic portfolio instance, we evaluate several components of the optimization workflow. We propose a specific adaptive CVaR schedule that gradually tightens the sampled tail used for optimization, together with a two-stage optimizer combining global exploration with Particle Swarm Optimization and local refinement with the Nakanishi-Fujii-Todo optimizer. We also study ansatz depth and sequential growth strategies. Finally, we introduce two hardware-aware ansatz-layout modifications: a data-guided colored layout that assigns correlated variables to qubits connected by entangling gates, and a heavy-hex-native deep-chain layout designed to increase native two-qubit interaction depth without additional routing overhead after transpilation. Simulator studies select CVaR, optimizer, and depth configurations, while the ansatz comparison is performed on the ibm_quebec QPU. The results show that sampling strategy, optimizer scheduling, and hardware-aware layout design materially affect performance. In the reported QPU layout comparison, the proposed heavy-hex-native deep-chain layout achieves the best final objective value and CVaR-tail performance among the tested layouts. Although we do not observe quantum advantage over a state-of-the-art exact classical solver, our results provide practical guidance for improving VQA performance on near-term hardware.",
+    "authors": [
+      "Mohammad Kashfi Haghighi"
+    ],
+    "categories": [
+      "cs.CE",
+      "quant-ph"
+    ],
+    "published": "2026-06-08T19:25:39Z",
+    "link_abs": "https://arxiv.org/abs/2606.10098",
+    "link_pdf": "https://arxiv.org/pdf/2606.10098.pdf",
+    "bucket": "ignore",
+    "score": 20,
+    "confidence": 0.2,
+    "short_reason": "The paper focuses on variational quantum algorithms applied to financial optimization problems, with no explicit mention of neutral-atom platforms, Rydberg states, or quantum error correction relevant to the user's profile.",
+    "matched_topics": [],
+    "concerns": [
+      "Lacks relevance to neutral-atom quantum computing or Rydberg platforms",
+      "Focuses on quantum algorithms for finance, not quantum hardware or QEC"
+    ]
+  },
+  {
+    "paper_id": "2606.09602",
+    "title": "Zermelo's navigation problem through the lens of quantum annealing: How the Landau-Zener approximation leads to an efficient classical solution",
+    "abstract": "The river-crossing problem, also known as Zermelo's navigation problem, is a classic example of an optimization problem with practical relevance and a scalable degree of complexity. It asks for the optimal trajectory of a vessel moving through a water flow field and provides a setting in which physics, variational methods, and optimization are naturally intertwined. We state a version of Zermelo's problem and then solve it as formulate it as an adiabatic quantum-computing problem using quantum trits, or qutrits for short. The construction includes a penalty term that enforces the prescribed boundary conditions and an exploration term that allows the system to move through intermediate configurations toward the optimal feasible path. In the adiabatic description, the evolution proceeds through a sequence of avoided crossings, so that the resulting fidelity can be estimated using the Landau-Zener formula. Remarkably, the regime in which this approximation is valid also provides a deterministic way to identify the correct solution with computational effort that scales only quadratically with the problem size. Thus, a quantum formulation initially motivated by the apparent exponential complexity of the problem reveals an underlying classical structure that can be exploited efficiently. Our approach also provides a pedagogical illustration of how a real-world optimization problem can be cast into a quantum-annealing framework and then analyzed using the Schrödinger equation, avoided crossings, and Landau-Zener theory.",
+    "authors": [
+      "Sølve Selstø",
+      "Tor Kristian Dahle",
+      "Sergiy Denysov",
+      "Yves-Laurent Ariel Rezus",
+      "Leiv Øyehaug"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-08T15:13:11Z",
+    "link_abs": "https://arxiv.org/abs/2606.09602",
+    "link_pdf": "https://arxiv.org/pdf/2606.09602.pdf",
+    "bucket": "ignore",
+    "score": 20,
+    "confidence": 0.2,
+    "short_reason": "The paper focuses on a classical optimization problem reformulated in a quantum annealing framework, with no explicit mention of neutral-atom platforms, Rydberg states, or quantum error correction relevant to quantum computing architectures.",
+    "matched_topics": [],
+    "concerns": [
+      "No connection to neutral-atom quantum computing or Rydberg platforms",
+      "Focus on classical optimization and quantum annealing without specific relevance to quantum hardware or QEC"
+    ]
+  },
+  {
+    "paper_id": "2606.09217",
+    "title": "Satellite-Based Quantum Communication: Performance Evaluation of Discrete-Variable Quantum Key Distribution Protocols",
+    "abstract": "Quantum Key Distribution (QKD) has emerged as a fundamentally secure approach to communication in the era of quantum computing, offering protection against threats posed to classical cryptographic schemes such as RSA and Diffie-Hellman. This thesis presents a comprehensive performance analysis of satellite-based QKD protocols, focusing on both prepare-and-measure and entanglement-based schemes under realistic atmospheric and operational conditions. The study begins by introducing the theoretical foundations of quantum communication, including qubits, entanglement, and quantum entropy, and motivates the need for satellite-based QKD to overcome the distance limitations of fiber-based systems. Subsequently, the thesis evaluates four prominent QKD protocols-BB84, B92, BBM92, and E91-using a circular beam propagation model that incorporates atmospheric effects such as diffraction, turbulence, attenuation, and pointing errors, along with environmental noise contributions for uplink and downlink. Comparative numerical simulations reveal that protocol performance is strongly influenced by channel asymmetries, beam propagation characteristics, and noise, providing guidance on optimal protocol selection for low Earth orbit (LEO) satellite links. The research further investigates high-dimensional (HD) QKD protocols, specifically HD-BB84 and HD-Extended B92, using the elliptic-beam approximation to account for turbulence-induced distortions for both uplink and downlink. Simulations under vary ing system dimensions, weather conditions, and zenith angles demonstrate that HD-BB84 achieves higher key rates, superior noise tolerance, and more favorable probability distributions of the key rate compared to HD-Extended B92, highlighting the advantages of high-dimensional encoding for robust satellite-based QKD.",
+    "authors": [
+      "Muskan"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-08T08:51:25Z",
+    "link_abs": "https://arxiv.org/abs/2606.09217",
+    "link_pdf": "https://arxiv.org/pdf/2606.09217.pdf",
+    "bucket": "ignore",
+    "score": 20,
+    "confidence": 0.2,
+    "short_reason": "Focuses on satellite-based QKD protocols and performance analysis, with no explicit connection to neutral-atom platforms, Rydberg states, or quantum error correction relevant to the user's research interests.",
+    "matched_topics": [
+      "quant-ph"
+    ],
+    "concerns": [
+      "No mention of neutral-atom quantum computing, Rydberg interactions, or QEC relevant to atomic systems.",
+      "Lacks connection to quantum architectures, error correction, or neutral-atom experimental protocols."
+    ]
+  },
+  {
+    "paper_id": "2606.08874",
+    "title": "Impact of gate-voltage noise on silicon spin-qubit variational quantum eigensolvers",
+    "abstract": "Quantum computers offer a route to outperform classical methods in tasks such as molecular simulation, motivating hybrid algorithms like the Variational Quantum Eigensolver (VQE) for near-term devices. Silicon spin qubits are a promising platform for scalable quantum computation, but their performance is limited by hardware imperfections -- most notably charge-noise-induced potential fluctuations and static miscalibration of gate-electrode voltages -- which degrade quantum gate fidelities and, ultimately, algorithmic accuracy. Here we develop a hardware-algorithm co-simulation framework for silicon quantum-dot processors that links 3D electrostatics to effective $g$-factors and exchange couplings, and propagates voltage-level noise through realistic control pulses. Using VQE for $\\mathrm{H}_2$ ground-state energy estimation as a circuit-level testbed, we study both static scaling/offset errors on the gate-electrode voltages and stochastic fluctuations modeled as random-telegraph noise with tunable amplitudes and switching times. At the gate level, we show that exchange-based two-qubit gates are roughly an order of magnitude more sensitive to these types of noise than ESR-driven single-qubit rotations. Quantum process tomography and Kraus-operator analysis further distinguish coherent and incoherent contributions and quantify the fraction of error that is, in principle, correctable by a compensating unitary. Embedding these noise models into the VQE circuit, we identify regimes of miscalibration strength and noise switching time compatible with chemically accurate energy estimates, and discuss how statistical post-processing based on the full distribution of noisy energy estimates could further improve accuracy.",
+    "authors": [
+      "Xinning Wang",
+      "Bohdan Khromets",
+      "Zachery Merino",
+      "Jonathan Baugh"
+    ],
+    "categories": [
+      "cond-mat.mes-hall",
+      "quant-ph"
+    ],
+    "published": "2026-06-07T23:00:55Z",
+    "link_abs": "https://arxiv.org/abs/2606.08874",
+    "link_pdf": "https://arxiv.org/pdf/2606.08874.pdf",
+    "bucket": "ignore",
+    "score": 20,
+    "confidence": 0.2,
+    "short_reason": "Focuses on silicon spin qubits and noise effects on VQE, with no explicit mention of neutral-atom platforms, Rydberg interactions, or quantum error correction relevant to the user's interests.",
+    "matched_topics": [],
+    "concerns": [
+      "No mention of neutral-atom or Rydberg systems",
+      "No focus on quantum error correction or qLDPC codes",
+      "Not related to neutral-atom quantum computing architectures"
+    ]
+  },
+  {
+    "paper_id": "2606.08873",
+    "title": "SCOPE: A Syndrome-Driven Control Plane for QEC-Enabled Quantum Networks",
+    "abstract": "As quantum networks evolve from experimental testbeds to fault-tolerant systems, the primary performance metric shifts from physical link fidelity to end-to-end logical error rate. However, current control planes remain ill-equipped for this transition: routing decisions are typically decoupled from Quantum Error Correction (QEC) strategies, relying on topology or scalar fidelity metrics that fail to predict how specific physical noise structures interact with logical codes. Optimizing this coupled route-and-code performance requires precise, real-time visibility into network error biases, yet traditional active tomography is operationally prohibitive due to throughput collapse and service interruption. We present SCOPE (Syndrome-based COntrol PlanE), a network-layer architecture that enables joint routing and coding optimization using purely passive telemetry. Instead of injecting probes, SCOPE harvests error syndromes -- the parity-check outcomes naturally generated by QEC decoders during user service. By aggregating these signals, SCOPE's inference engine reconstructs the network's time-varying error map, capturing complex, context-dependent noise correlations. This visibility drives a decision engine that proactively pushes optimal route-and-code configurations to source nodes. NetSquid and IBM-calibrated simulations show that SCOPE reduces estimation error by more than 60% relative to a standard EM baseline. In large-scale networks, this precision reduces logical error rates by 30-35% (up to 65%) against topology-aware baselines.",
+    "authors": [
+      "Xiaojie Fan",
+      "Zian Wang",
+      "Ashutosh Tiwari",
+      "Himanshu Gupta"
+    ],
+    "categories": [
+      "cs.NI",
+      "quant-ph"
+    ],
+    "published": "2026-06-07T23:00:09Z",
+    "link_abs": "https://arxiv.org/abs/2606.08873",
+    "link_pdf": "https://arxiv.org/pdf/2606.08873.pdf",
+    "bucket": "ignore",
+    "score": 20,
+    "confidence": 0.2,
+    "short_reason": "Focuses on quantum network control and error management, not directly related to neutral-atom quantum computing or Rydberg-based architectures.",
+    "matched_topics": [],
+    "concerns": [
+      "No mention of neutral atoms, Rydberg states, or quantum computing architectures.",
+      "Focus on quantum networks and error correction control, not specific to quantum hardware or QEC codes relevant to neutral atoms."
+    ]
+  }
+]

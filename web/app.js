@@ -4,7 +4,6 @@ const state = {
   query: "",
   sort: "score",
   activeBuckets: new Set(["recommended", "maybe"]),
-  expanded: new Set(),
 };
 
 const bucketLabels = {
@@ -72,20 +71,6 @@ function wireControls() {
     render();
   });
 
-  document.getElementById("results").addEventListener("click", (event) => {
-    const button = event.target.closest("[data-toggle-abstract]");
-    if (!button) {
-      return;
-    }
-
-    const paperId = button.dataset.toggleAbstract;
-    if (state.expanded.has(paperId)) {
-      state.expanded.delete(paperId);
-    } else {
-      state.expanded.add(paperId);
-    }
-    render();
-  });
 }
 
 function syncBucketButtons() {
@@ -181,7 +166,6 @@ function sortPapers(papers) {
 }
 
 function renderCard(paper) {
-  const expanded = state.expanded.has(paper.paper_id);
   const tags = renderPills(paper.matched_topics || [], "tag");
   const categories = renderPills(paper.categories || [], "category");
   const concerns =
@@ -207,17 +191,9 @@ function renderCard(paper) {
         </div>
       </div>
 
-      <p class="reason">${escapeHtml(paper.short_reason)}</p>
+      <p class="abstract">${escapeHtml(paper.abstract || "No abstract available.")}</p>
       <div class="pill-row">${tags}${categories}</div>
       ${concerns}
-
-      <button class="abstract-toggle" type="button" data-toggle-abstract="${escapeHtml(paper.paper_id)}">
-        ${expanded ? "Hide abstract" : "Show abstract"}
-      </button>
-
-      <div class="abstract ${expanded ? "is-visible" : ""}">
-        <p>${escapeHtml(paper.abstract || "No abstract available.")}</p>
-      </div>
     </article>
   `;
 }

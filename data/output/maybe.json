@@ -1,2 +1,54 @@
-[]
-
+[
+  {
+    "paper_id": "2606.10430",
+    "title": "Efficient Magic State Cultivation for $\\sqrt{T}$ Gates",
+    "abstract": "Recently, experimental and theoretical quantum error correction methodology has seen remarkable breakthroughs. In particular, magic state cultivation has been shown to simplify magic-state preparation and make it feasible for near-term devices. However, recent research on magic state cultivation has focused primarily on the cultivation of $T\\left| + \\right>_L$. Only a few other magic state cultivation methods beyond $T\\left| + \\right>_L$ have been investigated. Here, we generalize phase kickback checks for magic states at arbitrary Clifford hierarchy levels in specific codes. We provide an example of cultivation of $\\sqrt{T}\\left| + \\right>_L$ in the doubled color code and the corresponding escape strategy using lattice surgery from the color code to large rotated surface codes. Using state vector simulation for un-grown cultivation, we observe a strong consistence between $S\\left| + \\right>_L$ and $\\sqrt{T}\\left| + \\right>_L$ cultivation's performance on the doubled color code. Finally, we discuss the application of the corresponding $\\sqrt{T}\\left| + \\right>_L$ cultivation, incorporating the STAR architecture and $T$ gates, for early fault-tolerant quantum computing and its potential to shorten gate synthesis in the fully fault-tolerant quantum computing era.",
+    "authors": [
+      "I-Chi Chen",
+      "Matheus da Silva Fonseca",
+      "Andrew Sornborger"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-09T05:14:50Z",
+    "link_abs": "https://arxiv.org/abs/2606.10430",
+    "link_pdf": "https://arxiv.org/pdf/2606.10430.pdf",
+    "bucket": "maybe",
+    "score": 55,
+    "confidence": 0.6,
+    "short_reason": "Discusses magic state cultivation and fault-tolerance, relevant to quantum error correction and fault-tolerant architectures, but not specifically focused on neutral-atom platforms or qLDPC codes.",
+    "matched_topics": [
+      "quantum error correction",
+      "magic state distillation"
+    ],
+    "concerns": []
+  },
+  {
+    "paper_id": "2606.08690",
+    "title": "High Precision Qubit-Efficient Variational Continuous Optimization via Amplitude Estimation",
+    "abstract": "Optimization of continuous-variable objectives on standard gate-based quantum computers via variational algorithms such as QAOA is typically approached by first discretizing each decision variable into a finite binary representation. This increases qubit requirements and restricts solution precision through fixed-resolution encodings. We propose a qubit-efficient variational framework for continuous optimization that instead encodes each decision variable into the squared amplitude or equivalently, the measurement probability of a single qubit state. This removes explicit discretization from the variable representation while remaining entirely within the standard qubit circuit model unlike methods like CV-QAOA employing qumode based hardware to achieve the same. To read out encoded variables, we propose using amplitude estimation rather than naive sampling or tomographic reconstruction, with the goal of improving precision scaling for continuous-value recovery. We outline how amplitude-estimation error propagates to decision-variable error and then to objective-value error under standard regularity assumptions, suggesting a distinct width-versus-precision tradeoff relative to discretized approaches. In particular, the framework replaces the logarithmic increase in qubits needed for finer binary precision with a constant cost of one qubit per decision variable, while shifting accuracy requirements into the estimation procedure. We position this approach relative to traditional discretized variational formulations, and argue that it provides a promising new direction for continuous optimization on standard qubit architectures.",
+    "authors": [
+      "Parth Danve"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-07T15:43:58Z",
+    "link_abs": "https://arxiv.org/abs/2606.08690",
+    "link_pdf": "https://arxiv.org/pdf/2606.08690.pdf",
+    "bucket": "maybe",
+    "score": 55,
+    "confidence": 0.6,
+    "short_reason": "Focuses on variational algorithms and amplitude estimation for continuous optimization, with no explicit connection to neutral-atom platforms or quantum error correction relevant to the user's interests.",
+    "matched_topics": [
+      "variational algorithms",
+      "amplitude estimation",
+      "continuous optimization"
+    ],
+    "concerns": [
+      "No mention of neutral-atom or Rydberg platforms",
+      "No QEC or quantum computing hardware specifics"
+    ]
+  }
+]
