@@ -1,5 +1,117 @@
 [
   {
+    "paper_id": "2606.12035",
+    "title": "Shadow Engineering of Quantum Processes",
+    "abstract": "Characterizing quantum processes is essential for hardware benchmarking, error diagnosis, and algorithm verification. While recent work [PRX QUANTUM \\textbf{4}, 040337 (2023)] extended classical shadows from quantum state to quantum process, enabling efficient single-channel $\\mathcal{E}$ property prediction, its applicability to composite processes $f(\\mathcal{E}_1, \\mathcal{E}_2,\\cdots, \\mathcal{E}_k)$ remains unexplored. We introduce shadow engineering, a framework encoding the classical shadows of processes into sparse transfer matrices to predict $f(\\mathcal{E}_1, \\mathcal{E}_2,\\cdots, \\mathcal{E}_k)$ properties with proven polynomial sample complexity, matching single-channel efficiency while exponentially lower than quantum process tomography. Crucially, this approach repurposes existing $\\mathcal{E}_m$-shadow data without physical execution of $f(\\mathcal{E}_1, \\mathcal{E}_2,\\cdots, \\mathcal{E}_k)$, enabling flexible quantum process characterization with minimal hardware overhead. We demonstrate the framework's effectiveness and practicality on a superconducting quantum processor for typical applications such as error mitigation and Hamiltonian dynamical simulation. This framework unlocks new capabilities for predicting complex quantum behaviors without physical re-execution, with immediate applications in near-term device calibration and quantum simulation.",
+    "authors": [
+      "De-Tao Jiang",
+      "He-Liang Huang",
+      "Hong-Wei Li",
+      "Tian-Ci Tian",
+      "Wei-Ming Zhu",
+      "Wei-You Liao"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-10T12:57:15Z",
+    "link_abs": "https://arxiv.org/abs/2606.12035",
+    "link_pdf": "https://arxiv.org/pdf/2606.12035.pdf",
+    "bucket": "maybe",
+    "score": 55,
+    "confidence": 0.7,
+    "short_reason": "Focuses on quantum process characterization and shadow techniques, relevant to quantum benchmarking and error diagnosis, which are of interest for quantum computing architectures.",
+    "matched_topics": [
+      "quantum process characterization",
+      "quantum benchmarking",
+      "error diagnosis"
+    ],
+    "concerns": []
+  },
+  {
+    "paper_id": "2606.11468",
+    "title": "Optimizing Encoder Circuits of Entanglement-Assisted Quantum LDPC Codes via Beam Search",
+    "abstract": "Entanglement-assisted (EA) quantum QC-LDPC codes offer strong error-correction capabilities with structured parity-check matrices, but their practical use depends on efficient encoder circuits and the availability of pre-shared Bell pairs (ebits). In all encoder implementations based on the stabilizer formalism, the dominant contribution to this complexity comes from the use of controlled gates. In this paper, we adopt the Sharma-Kumar-Garani (SKG) encoder construction. We formulate the encoder optimization as a search over GF(2) row operations that decompose the binary matrix derived from its CNOT sub-sequence. We solve this problem using a beam search algorithm guided by a Hamming-distance heuristic. For the tested EA quantum QC-LDPC code families, the proposed method achieves CNOT-count reductions of 7.3-34.0% relative to the SKG baseline encoder. The optimized circuits also yield lower CNOT counts than Patel-Markov-Hayes synthesis on all tested instances and are verified by stabilizer-tableau simulation. These results show that substantial encoder simplification is possible for structured EA QC-LDPC codes.",
+    "authors": [
+      "Aditya Sodhani",
+      "Pavan Kumar",
+      "Shayan Srinivasa Garani",
+      "Keshab K. Parhi"
+    ],
+    "categories": [
+      "cs.IT",
+      "quant-ph"
+    ],
+    "published": "2026-06-09T21:57:07Z",
+    "link_abs": "https://arxiv.org/abs/2606.11468",
+    "link_pdf": "https://arxiv.org/pdf/2606.11468.pdf",
+    "bucket": "maybe",
+    "score": 55,
+    "confidence": 0.7,
+    "short_reason": "Focuses on quantum LDPC codes and encoder optimization, relevant to quantum error correction for quantum computing.",
+    "matched_topics": [
+      "quantum LDPC codes",
+      "quantum error correction"
+    ],
+    "concerns": []
+  },
+  {
+    "paper_id": "2606.11340",
+    "title": "Q-DICE: Quantum Distributed Interconnect Compiler and Emulator",
+    "abstract": "As distributed quantum computing (DQC) offers a leading path towards scalable quantum computation, the ability to benchmark distributed algorithms under realistic conditions becomes critical for system co-design. However, without access to physical systems, researchers lack tools to evaluate distribution protocols. We introduce Q-DICE (Quantum Distributed Interconnect Compiler and Emulator), a hardware-aware emulation environment for benchmarking distributed quantum circuits on classical simulators and on NISQ-era monolithic hardware. This work provides three core contributions: (1) a programmatic scheme to construct distributed QPU backends, utilizing two novel techniques - QPU slicing and stitching - to facilitate distributed circuit mapping, (2) a methodology for modeling nonlocal link noise using physically motivated Kraus operators and stochastic error channels, and (3) a boundary-aware circuit mapping algorithm enforcing distributed QPU topology constraints during transpilation. Together, these components constitute a distribution-aware compiler and noise-modeling engine that faithfully enforces the physical limitations of distributed quantum hardware within existing execution environments. We validate Q-DICE against a multitude of experimentally demonstrated quantum circuits, including a distributed Grover's search on optically linked trapped-ion hardware, achieving a worst-case fidelity deviation of 4% between simulated and experimental results. These findings demonstrate Q-DICE's capacity to accurately reproduce real distributed quantum system behavior across platforms, streamlining experimentation with distributed quantum algorithms and architectures.",
+    "authors": [
+      "Michael Silver",
+      "Zachary Vernec",
+      "Hans-Arno Jacobsen"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-09T18:19:08Z",
+    "link_abs": "https://arxiv.org/abs/2606.11340",
+    "link_pdf": "https://arxiv.org/pdf/2606.11340.pdf",
+    "bucket": "maybe",
+    "score": 55,
+    "confidence": 0.6,
+    "short_reason": "Focuses on distributed quantum computing and emulation, relevant for scalable architectures but not specifically on neutral-atom platforms or Rydberg-based QEC.",
+    "matched_topics": [
+      "distributed quantum computing",
+      "quantum emulation"
+    ],
+    "concerns": []
+  },
+  {
+    "paper_id": "2606.10548",
+    "title": "Interaction-driven dynamics in graphene flakes as a benchmark for quantum simulation",
+    "abstract": "We study interaction-driven ultrafast dynamics in finite graphene flakes following an optical pump quench in an interacting tight-binding model. By comparing exact real-time evolution with simulations restricted to particle-hole excitation subspaces, we assess when relaxation can be captured by low-order many-body processes and when this is not sufficient. The single-particle orbital entropy provides a compact diagnostic for dynamic correlation growth. For the systems studied here, periodic graphene flakes are well described by low-order excitations, whereas confined geometries require substantial higher-order contributions even for relatively small interaction strengths. The quench protocol combines simple initial-state preparation with strongly correlated dynamics, identifying a promising benchmark problem for future quantum-computing simulations.",
+    "authors": [
+      "Fabian Eickhoff",
+      "Satoshi Ejima",
+      "Lukas Windgätter",
+      "Florian G. Eich",
+      "Hannah Rittich",
+      "Sebastian Zanker",
+      "Peter Schmitteckert"
+    ],
+    "categories": [
+      "cond-mat.str-el",
+      "physics.comp-ph",
+      "quant-ph"
+    ],
+    "published": "2026-06-09T08:17:09Z",
+    "link_abs": "https://arxiv.org/abs/2606.10548",
+    "link_pdf": "https://arxiv.org/pdf/2606.10548.pdf",
+    "bucket": "maybe",
+    "score": 55,
+    "confidence": 0.7,
+    "short_reason": "Discusses a benchmark problem for quantum simulation involving strongly correlated dynamics, relevant for quantum computing.",
+    "matched_topics": [
+      "quant-ph",
+      "quantum simulation"
+    ],
+    "concerns": []
+  },
+  {
     "paper_id": "2606.10430",
     "title": "Efficient Magic State Cultivation for $\\sqrt{T}$ Gates",
     "abstract": "Recently, experimental and theoretical quantum error correction methodology has seen remarkable breakthroughs. In particular, magic state cultivation has been shown to simplify magic-state preparation and make it feasible for near-term devices. However, recent research on magic state cultivation has focused primarily on the cultivation of $T\\left| + \\right>_L$. Only a few other magic state cultivation methods beyond $T\\left| + \\right>_L$ have been investigated. Here, we generalize phase kickback checks for magic states at arbitrary Clifford hierarchy levels in specific codes. We provide an example of cultivation of $\\sqrt{T}\\left| + \\right>_L$ in the doubled color code and the corresponding escape strategy using lattice surgery from the color code to large rotated surface codes. Using state vector simulation for un-grown cultivation, we observe a strong consistence between $S\\left| + \\right>_L$ and $\\sqrt{T}\\left| + \\right>_L$ cultivation's performance on the doubled color code. Finally, we discuss the application of the corresponding $\\sqrt{T}\\left| + \\right>_L$ cultivation, incorporating the STAR architecture and $T$ gates, for early fault-tolerant quantum computing and its potential to shorten gate synthesis in the fully fault-tolerant quantum computing era.",
@@ -16,39 +128,42 @@
     "link_pdf": "https://arxiv.org/pdf/2606.10430.pdf",
     "bucket": "maybe",
     "score": 55,
-    "confidence": 0.6,
-    "short_reason": "Discusses magic state cultivation and fault-tolerance, relevant to quantum error correction and fault-tolerant architectures, but not specifically focused on neutral-atom platforms or qLDPC codes.",
+    "confidence": 0.7,
+    "short_reason": "Discusses magic state cultivation and fault-tolerant quantum computing, relevant to quantum error correction and fault-tolerance strategies.",
     "matched_topics": [
       "quantum error correction",
-      "magic state distillation"
+      "magic state distillation",
+      "fault-tolerant quantum computing"
     ],
     "concerns": []
   },
   {
-    "paper_id": "2606.08690",
-    "title": "High Precision Qubit-Efficient Variational Continuous Optimization via Amplitude Estimation",
-    "abstract": "Optimization of continuous-variable objectives on standard gate-based quantum computers via variational algorithms such as QAOA is typically approached by first discretizing each decision variable into a finite binary representation. This increases qubit requirements and restricts solution precision through fixed-resolution encodings. We propose a qubit-efficient variational framework for continuous optimization that instead encodes each decision variable into the squared amplitude or equivalently, the measurement probability of a single qubit state. This removes explicit discretization from the variable representation while remaining entirely within the standard qubit circuit model unlike methods like CV-QAOA employing qumode based hardware to achieve the same. To read out encoded variables, we propose using amplitude estimation rather than naive sampling or tomographic reconstruction, with the goal of improving precision scaling for continuous-value recovery. We outline how amplitude-estimation error propagates to decision-variable error and then to objective-value error under standard regularity assumptions, suggesting a distinct width-versus-precision tradeoff relative to discretized approaches. In particular, the framework replaces the logarithmic increase in qubits needed for finer binary precision with a constant cost of one qubit per decision variable, while shifting accuracy requirements into the estimation procedure. We position this approach relative to traditional discretized variational formulations, and argue that it provides a promising new direction for continuous optimization on standard qubit architectures.",
+    "paper_id": "2606.09734",
+    "title": "Adaptive directional gradients for parameterised quantum circuits",
+    "abstract": "Training parameterised quantum circuits (PQCs) on quantum hardware is bottlenecked by the measurement cost of gradient estimation, which under the parameter-shift rule scales linearly in the number of trainable parameters and dominates the total shot budget of training at scale. In this work, we propose a framework of forward gradient estimators for PQCs, based on the forward mode of automatic differentiation, that yields an unbiased estimator of the gradient by averaging a freely tunable number of random directional derivatives and recovers SPSA, random coordinate descent, and the parameter-shift rule as limiting cases, with no ancilla qubits or controlled-gate overhead. We prove that stochastic quantum forward gradient descent converges under standard assumptions, with an explicit second-moment expansion that interpolates between the single-direction extreme of SPSA and the full-gradient extreme of parameter-shift. Within this framework we derive QUIVER (Quantum Iterative V-adaptive Estimator Rule), an adaptive optimiser for parameterised circuits whose update rule follows from a closed-form minimum measurement-cost allocation. We show numerically that forward gradients train Hamming-weight-preserving orthogonal quantum neural networks with up to 60 qubits and 1770 parameters on the ECG5000 and MNIST datasets orders of magnitude more efficiently than the parameter-shift rule. We also demonstrate that our proposed QUIVER optimiser can outperform iCANS and gCANS measurement-frugal optimisers on optimisation problems using the quantum approximate optimisation algorithm and quantum simulation with the variational quantum eigensolver.",
     "authors": [
-      "Parth Danve"
+      "Brian Coyle",
+      "Snehal Raj",
+      "Virag Umathe",
+      "El Amine Cherrat",
+      "Elham Kashefi"
     ],
     "categories": [
+      "cs.LG",
       "quant-ph"
     ],
-    "published": "2026-06-07T15:43:58Z",
-    "link_abs": "https://arxiv.org/abs/2606.08690",
-    "link_pdf": "https://arxiv.org/pdf/2606.08690.pdf",
+    "published": "2026-06-08T16:59:58Z",
+    "link_abs": "https://arxiv.org/abs/2606.09734",
+    "link_pdf": "https://arxiv.org/pdf/2606.09734.pdf",
     "bucket": "maybe",
     "score": 55,
-    "confidence": 0.6,
-    "short_reason": "Focuses on variational algorithms and amplitude estimation for continuous optimization, with no explicit connection to neutral-atom platforms or quantum error correction relevant to the user's interests.",
+    "confidence": 0.7,
+    "short_reason": "Focuses on gradient estimation methods for parameterized quantum circuits, relevant to quantum algorithm optimization but not directly tied to neutral-atom platforms or QEC.",
     "matched_topics": [
-      "variational algorithms",
-      "amplitude estimation",
-      "continuous optimization"
+      "quant-ph"
     ],
     "concerns": [
-      "No mention of neutral-atom or Rydberg platforms",
-      "No QEC or quantum computing hardware specifics"
+      "No explicit mention of neutral-atom systems, Rydberg platforms, or quantum error correction"
     ]
   }
 ]

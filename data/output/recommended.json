@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "paper_id": "2606.12030",
+    "title": "Measurement-Free Toric-Code Memory in Array Globally Controlled Rydberg Array",
+    "abstract": "The central prerequisite of any fault-tolerant quantum architecture is a quantum memory: a block of encoded physical qubits whose logical state is actively preserved against noise across many rounds of error correction. In neutral-atom Rydberg arrays, realizing such a memory is obstructed not by the entangling gates themselves, which are already fast and high-fidelity, but by the auxiliary operations that a conventional error-correction cycle requires: mid-circuit fluorescence measurement, inter-zone atom transport, and locally focused single-qubit addressing. Each of these introduces latency, atom loss, or optical crosstalk that exceeds the cost of the underlying gates by orders of magnitude. These costs accumulate cycle after cycle, progressively degrading the very logical information the code is meant to protect. Here we propose a protocol that stabilizes a toric-code quantum memory without moving, measuring or local addressing atoms. The key is to use a three-species Rydberg atom array for the complete stabilizer cycle, including syndrome extraction, coherent correction, and ancilla reset, under global, species-selective laser pulses. Numerical simulation of a $4 \\times 4$ rotated toric code shows a longer qubit lifetime when the physical error rate is below a pseudo-threshold $p^\\star \\approx 0.034$. The scheme offers a concrete, hardware-efficient route to topological quantum memory in neutral-atom platforms.",
+    "authors": [
+      "Han Wang",
+      "Yusheng Zhao",
+      "Xiuhao Deng",
+      "Jinguo Liu"
+    ],
+    "categories": [
+      "quant-ph"
+    ],
+    "published": "2026-06-10T12:52:08Z",
+    "link_abs": "https://arxiv.org/abs/2606.12030",
+    "link_pdf": "https://arxiv.org/pdf/2606.12030.pdf",
+    "bucket": "recommended",
+    "score": 80,
+    "confidence": 0.9,
+    "short_reason": "Proposes a neutral-atom Rydberg-based quantum memory protocol avoiding mid-circuit measurement and local addressing, directly relevant to neutral-atom quantum computing architectures.",
+    "matched_topics": [
+      "neutral-atom quantum computing",
+      "Rydberg arrays",
+      "topological quantum memory",
+      "quantum error correction"
+    ],
+    "concerns": []
+  }
+]
