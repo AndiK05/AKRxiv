@@ -43,14 +43,34 @@
           </select>
         </label>
 
+        <div class="day-filter" aria-label="Publication day">
+          <span>Day</span>
+          <div class="day-bar" id="day-bar"></div>
+        </div>
+
         <div class="bucket-bar" id="bucket-bar">
-          <button class="bucket-button is-active" data-bucket="recommended" type="button">
+          <button
+            class="bucket-button is-active"
+            data-bucket="recommended"
+            aria-pressed="true"
+            type="button"
+          >
             Recommended
           </button>
-          <button class="bucket-button is-active" data-bucket="maybe" type="button">
+          <button
+            class="bucket-button is-active"
+            data-bucket="maybe"
+            aria-pressed="true"
+            type="button"
+          >
             Maybe
           </button>
-          <button class="bucket-button" data-bucket="ignore" type="button">
+          <button
+            class="bucket-button"
+            data-bucket="ignore"
+            aria-pressed="false"
+            type="button"
+          >
             Ignore
           </button>
         </div>
@@ -67,4 +87,3 @@
     <script src="./app.js" defer></script>
   </body>
 </html>
-

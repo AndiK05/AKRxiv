@@ -63,6 +63,7 @@ body {
 
 .eyebrow,
 .field span,
+.day-filter > span,
 .site-footer {
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -100,6 +101,7 @@ h1 {
 
 .stat-pill,
 .bucket-button,
+.day-button,
 .score-pill,
 .confidence-pill,
 .mini-pill,
@@ -129,10 +131,18 @@ h1 {
   background: var(--bg-soft);
 }
 
-.bucket-bar {
+.bucket-bar,
+.day-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  grid-column: 1 / -1;
+}
+
+.day-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   grid-column: 1 / -1;
 }
 
@@ -142,7 +152,8 @@ h1 {
   gap: 8px;
 }
 
-.field span {
+.field span,
+.day-filter > span {
   color: var(--muted);
   font-size: 0.74rem;
   font-weight: 700;
@@ -172,7 +183,8 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-.bucket-button {
+.bucket-button,
+.day-button {
   padding: 10px 16px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.55);
@@ -182,12 +194,14 @@ a:focus-visible {
 }
 
 .bucket-button:hover,
+.day-button:hover,
 .abstract-toggle:hover,
 .card-links a:hover {
   transform: translateY(-1px);
 }
 
-.bucket-button.is-active {
+.bucket-button.is-active,
+.day-button.is-active {
   border-color: rgba(12, 106, 86, 0.26);
   background: var(--accent-soft);
   color: var(--accent);
@@ -363,4 +377,3 @@ a:focus-visible {
     justify-content: flex-start;
   }
 }
-

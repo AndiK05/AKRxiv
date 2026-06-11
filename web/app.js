@@ -3,6 +3,7 @@ const state = {
   metadata: null,
   query: "",
   sort: "score",
+  selectedDate: "all",
   activeBuckets: new Set(["recommended", "maybe"]),
 };
 
@@ -28,6 +29,7 @@ async function loadData() {
     ]);
     state.papers = Array.isArray(papers) ? papers : [];
     state.metadata = metadata;
+    state.selectedDate = getDateOptions()[0]?.date || "all";
     render();
   } catch (error) {
     resultsEl.innerHTML = renderNotice(
@@ -55,6 +57,16 @@ function wireControls() {
     render();
   });
 
+  document.getElementById("day-bar").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-date-filter]");
+    if (!button) {
+      return;
+    }
+
+    state.selectedDate = button.dataset.dateFilter;
+    render();
+  });
+
   document.getElementById("bucket-bar").addEventListener("click", (event) => {
     const button = event.target.closest("[data-bucket]");
     if (!button) {
@@ -77,10 +89,12 @@ function syncBucketButtons() {
   document.querySelectorAll("[data-bucket]").forEach((button) => {
     const active = state.activeBuckets.has(button.dataset.bucket);
     button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
   });
 }
 
 function render() {
+  renderDayButtons();
   renderHero();
   renderFooter();
 
@@ -99,12 +113,12 @@ function render() {
 
 function renderHero() {
   const heroStats = document.getElementById("hero-stats");
-  const counts = state.metadata?.counts || {};
+  const scopedPapers = filterPapersByDate(state.papers);
   const pills = [
-    statPill("Papers", state.papers.length),
-    statPill("Recommended", counts.recommended ?? countBucket("recommended")),
-    statPill("Maybe", counts.maybe ?? countBucket("maybe")),
-    statPill("Ignore", counts.ignored ?? countBucket("ignore")),
+    statPill("Papers", scopedPapers.length),
+    statPill("Recommended", countBucket("recommended", scopedPapers)),
+    statPill("Maybe", countBucket("maybe", scopedPapers)),
+    statPill("Ignore", countBucket("ignore", scopedPapers)),
   ];
   heroStats.innerHTML = pills.join("");
 }
@@ -117,12 +131,65 @@ function renderFooter() {
     : "Last build time unavailable";
 }
 
-function countBucket(bucket) {
-  return state.papers.filter((paper) => paper.bucket === bucket).length;
+function renderDayButtons() {
+  const dayBar = document.getElementById("day-bar");
+  const options = getDateOptions();
+  const allCount = state.papers.length;
+  const allActive = state.selectedDate === "all";
+  const buttons = [
+    renderDayButton("all", `All (${allCount})`, allActive),
+    ...options.map(({ date, count }) => {
+      const active = state.selectedDate === date;
+      return renderDayButton(date, `${date} (${count})`, active);
+    }),
+  ];
+  dayBar.innerHTML = buttons.join("");
+}
+
+function renderDayButton(date, label, active) {
+  return `
+    <button
+      class="day-button ${active ? "is-active" : ""}"
+      data-date-filter="${escapeHtml(date)}"
+      aria-pressed="${String(active)}"
+      type="button"
+    >
+      ${escapeHtml(label)}
+    </button>
+  `;
+}
+
+function getDateOptions() {
+  const counts = new Map();
+  state.papers.forEach((paper) => {
+    const date = getPaperDate(paper);
+    if (!date) {
+      return;
+    }
+    counts.set(date, (counts.get(date) || 0) + 1);
+  });
+  return [...counts.entries()]
+    .sort(([dateA], [dateB]) => dateB.localeCompare(dateA))
+    .map(([date, count]) => ({ date, count }));
+}
+
+function getPaperDate(paper) {
+  return String(paper.published || "").slice(0, 10);
+}
+
+function countBucket(bucket, papers = state.papers) {
+  return papers.filter((paper) => paper.bucket === bucket).length;
+}
+
+function filterPapersByDate(papers) {
+  if (state.selectedDate === "all") {
+    return papers;
+  }
+  return papers.filter((paper) => getPaperDate(paper) === state.selectedDate);
 }
 
 function filterPapers() {
-  return state.papers.filter((paper) => {
+  return filterPapersByDate(state.papers).filter((paper) => {
     if (!state.activeBuckets.has(paper.bucket)) {
       return false;
     }
@@ -249,4 +316,3 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 }
-
